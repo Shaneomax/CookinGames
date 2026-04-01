@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
         InputManager.Instance.OnMove += HandleMove;
         InputManager.Instance.OnJump += HandleJump;
