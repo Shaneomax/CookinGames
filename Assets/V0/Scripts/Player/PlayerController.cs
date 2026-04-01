@@ -5,6 +5,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Vector3 moveInput;
     [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float rayDistance = 5f;
+    //[SerializeField] private bool isGrounded = true;
+    [SerializeField] private float jumpForce = 5f;
+    private bool checkGroundLayer = true;
+    [SerializeField] private LayerMask groundLayer;
 
     private void Awake()
     {
@@ -14,16 +19,23 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         InputManager.Instance.OnMove += HandleMove;
+        InputManager.Instance.OnJump += HandleJump;
     }
 
     private void OnDisable()
     {
         InputManager.Instance.OnMove -= HandleMove;
+        InputManager.Instance.OnJump -= HandleJump;
     }
 
     private void HandleMove(Vector3 input)
     {
         moveInput = input;
+    }
+
+    private void HandleJump()
+    {
+        ApplyJumpForce();
     }
 
     private void FixedUpdate()
@@ -37,5 +49,25 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = moveDirection;
     }
 
-    
+    private void ApplyJumpForce()
+    {
+        if (isGrounded())
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    private bool isGrounded()
+    {
+        checkGroundLayer = Physics.Raycast(transform.position, Vector3.down, rayDistance, groundLayer);
+        return checkGroundLayer;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, Vector3.down * rayDistance);
+    }
+
+
 }
