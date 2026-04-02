@@ -45,21 +45,16 @@ public class PlayerController : MonoBehaviour
 
     public void ApplyMovement()
     {
-        // 1. Get the Camera's forward and right vectors
         Vector3 forward = Camera.main.transform.forward;
         Vector3 right = Camera.main.transform.right;
 
-        // 2. Project them onto the horizontal plane (ignore the Y axis)
         forward.y = 0f;
         right.y = 0f;
         forward.Normalize();
         right.Normalize();
 
-        // 3. Calculate movement relative to the camera
-        // moveInput.z is vertical (W/S), moveInput.x is horizontal (A/D)
         Vector3 moveDirection = (forward * moveInput.z + right * moveInput.x).normalized;
 
-        // 4. Apply to Rigidbody, keeping current vertical velocity
         rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed, rb.linearVelocity.y, moveDirection.z * moveSpeed);
     }
 

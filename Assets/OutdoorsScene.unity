@@ -478,6 +478,7 @@ Transform:
   - {fileID: 1823688467}
   - {fileID: 883619319}
   - {fileID: 884620402}
+  - {fileID: 1366633491}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &235433193
@@ -1313,7 +1314,7 @@ Transform:
   m_GameObject: {fileID: 884620401}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: -0.14, z: 0.038}
+  m_LocalPosition: {x: -0.1, y: -0.14, z: 5.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1445,7 +1446,6 @@ GameObject:
   - component: {fileID: 1357216141}
   - component: {fileID: 1357216140}
   - component: {fileID: 1357216139}
-  - component: {fileID: 1357216144}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -1580,7 +1580,7 @@ MonoBehaviour:
   VerticalAxis:
     Value: 10.4
     Center: 17.5
-    Range: {x: 0, y: 45}
+    Range: {x: 0, y: 90}
     Wrap: 0
     Recentering:
       Enabled: 0
@@ -1655,22 +1655,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1357216144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357216138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60925ee9a442d4548bb169d876bb723e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerCamera
-  normalCamera: {fileID: 1357216142}
-  zoomCamera: {fileID: 1431368701}
-  playerTransform: {fileID: 235433192}
-  rotationSpeed: 15
 --- !u!1 &1366633487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,12 +1760,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1366633487}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.043, y: 1.609, z: 0.56313}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.043, y: 0.60899997, z: 0.547}
   m_LocalScale: {x: 0.72, y: 0.3, z: 0.66}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 235433192}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1431368700
 GameObject:
@@ -1793,6 +1777,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1431368702}
   - component: {fileID: 1431368701}
+  - component: {fileID: 1431368705}
   m_Layer: 0
   m_Name: ZoomCamera
   m_TagString: Untagged
@@ -1851,13 +1836,32 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431368700}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.37, y: 0.706, z: 1.04}
+  m_LocalRotation: {x: 0.1521234, y: 0, z: 0, w: 0.98836154}
+  m_LocalPosition: {x: 0.48, y: 0.83, z: 0.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 235433192}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1431368705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431368700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89875cdc57c54474a8a74efd9b2a3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineInputAxisController
+  ScanRecursively: 1
+  SuppressInputWhileBlending: 1
+  IgnoreTimeScale: 0
+  m_ControllerManager:
+    Controllers: []
+  PlayerIndex: -1
+  AutoEnableInputs: 1
 --- !u!1 &1612424061
 GameObject:
   m_ObjectHideFlags: 0
@@ -2132,6 +2136,7 @@ GameObject:
   - component: {fileID: 1823688465}
   - component: {fileID: 1823688468}
   - component: {fileID: 1823688470}
+  - component: {fileID: 1823688471}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2384,6 +2389,22 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!114 &1823688471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823688464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60925ee9a442d4548bb169d876bb723e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCamera
+  normalCamera: {fileID: 1357216142}
+  zoomCamera: {fileID: 1431368701}
+  playerTransform: {fileID: 235433192}
+  rotationSpeed: 15
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1
@@ -2445,4 +2466,3 @@ SceneRoots:
   - {fileID: 374653338}
   - {fileID: 1357216143}
   - {fileID: 235433192}
-  - {fileID: 1366633491}
