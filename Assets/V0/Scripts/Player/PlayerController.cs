@@ -43,10 +43,32 @@ public class PlayerController : MonoBehaviour
        ApplyMovement();
     }
 
-    public void ApplyMovement()
+    private void ApplyMovement()
     {
-        Vector3 moveDirection = new Vector3(moveInput.x * moveSpeed, rb.linearVelocity.y, moveInput.z * moveSpeed);
-        rb.linearVelocity = moveDirection;
+        // 1. Get Camera direction, but ignore Up/Down tilt
+        Vector3 camForward = Camera.main.transform.forward;
+        camForward.y = 0;
+        camForward.Normalize();
+
+        Vector3 camRight = Camera.main.transform.right;
+        camRight.y = 0;
+        camRight.Normalize();
+
+        // 2. Create the move direction relative to the camera
+        Vector3 relativeDirection = (camForward * moveInput.z) + (camRight * moveInput.x);
+
+        // 3. Apply to Rigidbody (keeping the existing Y velocity for gravity/jumping)
+        rb.linearVelocity = new Vector3(
+            relativeDirection.x * moveSpeed,
+            rb.linearVelocity.y,
+            relativeDirection.z * moveSpeed
+        );
+
+        // 4. Rotate player to face the direction they are walking
+        if (relativeDirection.magnitude > 0.1f)
+        {
+            transform.forward = relativeDirection;
+        }
     }
 
     private void ApplyJumpForce()
