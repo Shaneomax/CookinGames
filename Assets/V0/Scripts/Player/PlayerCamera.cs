@@ -1,38 +1,43 @@
-using UnityEngine;
+using System;
 using Unity.Cinemachine;
+using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    [Header("Settings")]
-    [SerializeField] private float sensitivityX = 1f;
-    [SerializeField] private float sensitivityY = 1f;
+    [SerializeField] private float zoomSpeed = 2f;
+    [SerializeField] private float zoomLerpSpeed = 10f;
+    [SerializeField] private float zoomedDistance = 5f;
+    [SerializeField] private float normalDistance = 10f;
 
-    // In Unity 6, we target the OrbitalFollow component specifically
-    [SerializeField] private CinemachineOrbitalFollow orbitalFollow;
+    [SerializeField] private CinemachineCamera normalCamera;
+    [SerializeField] private CinemachineCamera zoomCamera;
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
 
-        if (InputManager.Instance != null)
-            InputManager.Instance.OnLook += HandleLook;
+        InputManager.Instance.OnZoom += HandleZoom;
     }
 
     private void OnDisable()
     {
-        if (InputManager.Instance != null)
-            InputManager.Instance.OnLook -= HandleLook;
+        InputManager.Instance.OnZoom -= HandleZoom;
     }
 
-    private void HandleLook(Vector2 lookInput)
+    private void HandleZoom(bool isZooming)
     {
-        if (orbitalFollow == null) return;
-
-        // X Axis is the Horizontal Orbit (Degrees)
-        orbitalFollow.HorizontalAxis.Value += lookInput.x * sensitivityX;
-
-        // Y Axis is the Vertical Orbit (0 to 1 range)
-        orbitalFollow.VerticalAxis.Value += lookInput.y * sensitivityY;
+        if (isZooming)
+        {
+            zoomCamera.Priority = 2;     // Higher than normal
+            normalCamera.Priority = 1;
+        }
+        else
+        {
+            zoomCamera.Priority = 0;
+            normalCamera.Priority = 1;
+        }
     }
+
+    
+
+
 }

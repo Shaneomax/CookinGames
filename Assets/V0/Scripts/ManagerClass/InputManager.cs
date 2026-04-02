@@ -7,8 +7,9 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance;
     public event Action<Vector3> OnMove;
     public event Action<Vector2> OnLook;
+    public event Action<bool> OnZoom;
     public event Action OnJump;
-    public event Action OnInteracr;
+    public event Action OnInteract;
 
 
     private void Awake()
@@ -40,6 +41,18 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public void Zoom(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnZoom?.Invoke(true); 
+        }
+        else if (context.canceled)
+        {
+            OnZoom?.Invoke(false); 
+        }
+    }
+
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -52,7 +65,7 @@ public class InputManager : MonoBehaviour
     {
         if (context.performed)
         {
-            OnInteracr?.Invoke();
+            OnInteract?.Invoke();
         }
     }
 }
