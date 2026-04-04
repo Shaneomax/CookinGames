@@ -10,22 +10,32 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 5f;
     private bool checkGroundLayer = true;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float interactRange = 2f;
+
+    public GunController gunController;
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+       
     }
 
     private void Start()
     {
         InputManager.Instance.OnMove += HandleMove;
         InputManager.Instance.OnJump += HandleJump;
+        InputManager.Instance.OnInteract += HandleInteract;
+        InputManager.Instance.OnFire += HandleFire;
+
     }
 
     private void OnDisable()
     {
         InputManager.Instance.OnMove -= HandleMove;
         InputManager.Instance.OnJump -= HandleJump;
+        InputManager.Instance.OnInteract -= HandleInteract;
+        InputManager.Instance.OnFire -= HandleFire;
     }
 
     private void HandleMove(Vector3 input)
@@ -36,6 +46,25 @@ public class PlayerController : MonoBehaviour
     private void HandleJump()
     {
         ApplyJumpForce();
+    }
+
+    private void HandleInteract()
+    {
+        
+        Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
+
+        foreach (Collider collider in colliderArray)
+        {
+            if (collider.TryGetComponent(out NPCInteractables npcInteractable))
+            {
+                npcInteractable.Interact();
+            }
+        }
+    }
+
+    private void HandleFire()
+    {
+        gunController.Shoot();
     }
 
     private void FixedUpdate()
@@ -76,6 +105,8 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector3.down * rayDistance);
+        Gizmos.DrawWireSphere(transform.position, interactRange);
+        
     }
 
 

@@ -9,10 +9,19 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private CinemachineCamera zoomCamera;
 
     [Header("Player Settings")]
-    [SerializeField] private Transform playerTransform; 
-    [SerializeField] private float rotationSpeed = 15f; 
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform lookAtTransform;
+    [SerializeField] private float rotationSpeed = 15f;
+    private CinemachineBrain brain;
 
-    private Vector2 lookInput;
+  
+
+    //private Vector2 lookInput;
+
+    private void Awake()
+    {
+        brain = Camera.main.GetComponent<CinemachineBrain>();
+    }
 
     private void Start()
     {
@@ -43,10 +52,6 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
-    //private void HandleLook(Vector2 input)
-    //{
-    //    lookInput = input;
-    //}
 
     private void LateUpdate()
     {
@@ -55,12 +60,14 @@ public class PlayerCamera : MonoBehaviour
 
     private void RotatePlayerWithCamera()
     {
+
         if (playerTransform != null)
         {
+
             float cameraYaw = Camera.main.transform.eulerAngles.y;
             Quaternion targetRotation = Quaternion.Euler(0f, cameraYaw, 0f);
             playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
         }
-    }
+    }   
 }
