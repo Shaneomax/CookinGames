@@ -14,7 +14,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private Transform pivotTransform;
     [SerializeField] private Transform gunTransform;
     public float rotationSpeed = 15f;
-    private CinemachineBrain brain;
+    //private CinemachineBrain brain;
     private Vector2 lookInput;
 
     private float yaw;
@@ -23,10 +23,10 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float cameraSmoothing = 10f;
 
 
-    private void Awake()
-    {
-        brain = Camera.main.GetComponent<CinemachineBrain>();
-    }
+    //private void Awake()
+    //{
+    //    brain = Camera.main.GetComponent<CinemachineBrain>();
+    //}
 
     private void Start()
     {

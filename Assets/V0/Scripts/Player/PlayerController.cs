@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         gunController.Shoot();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
        ApplyMovement();
     }

@@ -46,11 +46,11 @@ public class InputManager : MonoBehaviour
     {
         if (context.performed)
         {
-            OnZoom?.Invoke(true); 
+            OnZoom?.Invoke(true);
         }
         else if (context.canceled)
         {
-            OnZoom?.Invoke(false); 
+            OnZoom?.Invoke(false);
         }
     }
 
