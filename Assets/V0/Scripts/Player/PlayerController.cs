@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -6,12 +7,12 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveInput;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float rayDistance = 5f;
-    //[SerializeField] private bool isGrounded = true;
     [SerializeField] private float jumpForce = 5f;
     private bool checkGroundLayer = true;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float interactRange = 2f;
-
+    
+    public PlayerCamera playerCamera;
     public GunController gunController;
 
 
@@ -50,14 +51,27 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteract()
     {
-        
+        // Find all colliders in range
         Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
 
         foreach (Collider collider in colliderArray)
         {
-            if (collider.TryGetComponent(out NPCInteractables npcInteractable))
+
+            if (collider.TryGetComponent(out Door door))
             {
-                npcInteractable.Interact();
+                door.Interact();
+                break; 
+            }
+
+            else if (collider.TryGetComponent(out SlidingDoor slidingDoor))
+            {
+                slidingDoor.Interact();
+                return;
+            }
+
+            else if (collider.TryGetComponent(out NPCInteractables npc))
+            {
+                npc.Interact();
             }
         }
     }
@@ -67,29 +81,32 @@ public class PlayerController : MonoBehaviour
         gunController.Shoot();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
        ApplyMovement();
     }
 
     public void ApplyMovement()
     {
-        //Vector3 forward = Camera.main.transform.forward;
-        //Vector3 right = Camera.main.transform.right;
+        Vector3 camForward = Camera.main.transform.forward;
+        Vector3 camRight = Camera.main.transform.right;
 
-        //forward.y = 0f;
-        //right.y = 0f;
-        //forward.Normalize();
-        //right.Normalize();
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
 
-        //Vector3 moveDirection = (forward * moveInput.z + right * moveInput.x).normalized;
+        Vector3 moveDirection = (camForward * moveInput.z + camRight * moveInput.x).normalized;
 
-        //rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed, rb.linearVelocity.y, moveDirection.z * moveSpeed);
-
-
-
-        Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.z).normalized;
         rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed, rb.linearVelocity.y, moveDirection.z * moveSpeed);
+
+        // Rotate Player towards movement direction when NOT zooming
+        if (moveDirection != Vector3.zero && playerCamera.zoomCamera.Priority != 2)
+        {
+            Quaternion lookRot = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * playerCamera.rotationSpeed);
+
+        }
     }
 
     private void ApplyJumpForce()

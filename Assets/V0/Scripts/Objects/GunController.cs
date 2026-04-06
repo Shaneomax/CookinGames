@@ -5,6 +5,7 @@ public class GunController : MonoBehaviour
 {
     [SerializeField] private float shootingRange = 12f;
     [SerializeField] private LayerMask enemy;
+
     public void Shoot()
     {
    
@@ -23,6 +24,6 @@ public class GunController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.forward * shootingRange);
+        Gizmos.DrawRay(transform.position, transform.forward * shootingRange);
     }
 }
