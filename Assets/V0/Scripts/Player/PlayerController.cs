@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
     private bool checkGroundLayer = true;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float interactRange = 2f;
-    
-    public PlayerCamera playerCamera;
-    public GunController gunController;
+
+    [SerializeField] private PlayerCamera playerCamera;
+    [SerializeField] private GunController gunController;
 
 
     private void Awake()
@@ -51,27 +51,14 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteract()
     {
-        // Find all colliders in range
         Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
 
         foreach (Collider collider in colliderArray)
         {
-
-            if (collider.TryGetComponent(out Door door))
+            if (collider.TryGetComponent(out Iinteractable interactable))
             {
-                door.Interact();
-                break; 
-            }
-
-            else if (collider.TryGetComponent(out SlidingDoor slidingDoor))
-            {
-                slidingDoor.Interact();
-                return;
-            }
-
-            else if (collider.TryGetComponent(out NPCInteractables npc))
-            {
-                npc.Interact();
+                interactable.Interact();
+                break;
             }
         }
     }

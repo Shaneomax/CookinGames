@@ -20,6 +20,8 @@ public class PlayerCamera : MonoBehaviour
     private float yaw;
     private float pitch;
     [SerializeField] private float mouseSensitivity = 2f;
+    [SerializeField] private float cameraSmoothing = 10f;
+
 
     private void Awake()
     {
@@ -80,6 +82,8 @@ public class PlayerCamera : MonoBehaviour
         //Update the Camera Pivot
         pivotTransform.rotation = Quaternion.Euler(pitch, yaw, 0f);
 
+        
+
         if (zoomCamera.Priority == 2)
         {
             // Rotate the WHOLE PLAYER on both Pitch (X) and Yaw (Y)
@@ -88,7 +92,9 @@ public class PlayerCamera : MonoBehaviour
 
             playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
+
+
         }
-        
+
     }
 }
