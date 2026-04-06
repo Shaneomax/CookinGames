@@ -74,16 +74,21 @@ public class PlayerController : MonoBehaviour
 
     public void ApplyMovement()
     {
-        Vector3 forward = Camera.main.transform.forward;
-        Vector3 right = Camera.main.transform.right;
+        //Vector3 forward = Camera.main.transform.forward;
+        //Vector3 right = Camera.main.transform.right;
 
-        forward.y = 0f;
-        right.y = 0f;
-        forward.Normalize();
-        right.Normalize();
+        //forward.y = 0f;
+        //right.y = 0f;
+        //forward.Normalize();
+        //right.Normalize();
 
-        Vector3 moveDirection = (forward * moveInput.z + right * moveInput.x).normalized;
+        //Vector3 moveDirection = (forward * moveInput.z + right * moveInput.x).normalized;
 
+        //rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed, rb.linearVelocity.y, moveDirection.z * moveSpeed);
+
+
+
+        Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.z).normalized;
         rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed, rb.linearVelocity.y, moveDirection.z * moveSpeed);
     }
 

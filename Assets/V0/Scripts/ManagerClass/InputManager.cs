@@ -6,6 +6,7 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
     public event Action<Vector3> OnMove;
+    public event Action<Vector2> OnLook;
     public event Action<bool> OnZoom;
     public event Action OnJump;
     public event Action OnInteract;
@@ -30,6 +31,14 @@ public class InputManager : MonoBehaviour
         if (context.performed || context.canceled)
         {
             OnMove?.Invoke(context.ReadValue<Vector3>());
+        }
+    }
+
+    public void Look(InputAction.CallbackContext context)
+    {
+        if (context.performed || context.canceled)
+        {
+            OnLook?.Invoke(context.ReadValue<Vector2>());
         }
     }
 

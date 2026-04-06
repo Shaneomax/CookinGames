@@ -11,12 +11,15 @@ public class PlayerCamera : MonoBehaviour
     [Header("Player Settings")]
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform lookAtTransform;
+    [SerializeField] private Transform pivotTransform;
+    [SerializeField] private Transform gunTransform;
     [SerializeField] private float rotationSpeed = 15f;
     private CinemachineBrain brain;
+    private Vector2 lookInput;
 
-  
-
-    //private Vector2 lookInput;
+    private float yaw;
+    private float pitch;
+    [SerializeField] private float mouseSensitivity = 2f;
 
     private void Awake()
     {
@@ -26,7 +29,7 @@ public class PlayerCamera : MonoBehaviour
     private void Start()
     {
         InputManager.Instance.OnZoom += HandleZoom;
-        //InputManager.Instance.OnLook += HandleLook;
+        InputManager.Instance.OnLook += HandleLook;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -35,7 +38,7 @@ public class PlayerCamera : MonoBehaviour
     private void OnDisable()
     {
         InputManager.Instance.OnZoom -= HandleZoom;
-        //InputManager.Instance.OnLook -= HandleLook;
+        InputManager.Instance.OnLook -= HandleLook;
     }
 
     private void HandleZoom(bool isZooming)
@@ -52,22 +55,39 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
+    private void HandleLook(Vector2 input)
+    {
+        lookInput = input;
+    }
+
 
     private void LateUpdate()
     {
-        RotatePlayerWithCamera();
+        RotateCamera();
     }
 
-    private void RotatePlayerWithCamera()
+    private void RotateCamera()
     {
+        yaw += lookInput.x * mouseSensitivity;
+        pitch -= lookInput.y * mouseSensitivity;
 
-        if (playerTransform != null)
+        pitch = Mathf.Clamp(pitch, -30f, 60f);
+
+        // ALWAYS rotate pivot (camera up/down + base rotation)
+        pivotTransform.rotation = Quaternion.Euler(pitch, yaw, 0f);
+        
+
+        // IF ZOOMING → rotate player ONLY on Y axis
+        if (zoomCamera.Priority == 2)
         {
-
-            float cameraYaw = Camera.main.transform.eulerAngles.y;
-            Quaternion targetRotation = Quaternion.Euler(0f, cameraYaw, 0f);
+            gunTransform.rotation = pivotTransform.rotation;
+            Quaternion targetRotation = Quaternion.Euler(0f, yaw, 0f);
             playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-
         }
-    }   
+        else 
+        {
+            gunTransform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        }
+
+    }
 }
