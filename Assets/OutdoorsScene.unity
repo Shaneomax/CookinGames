@@ -1650,7 +1650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
     Enabled: 1
-    m_Value: 2
+    m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -2638,15 +2638,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894015340365892250}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8527625772578200516}
   - {fileID: 7192343918038896082}
   - {fileID: 399960107867960927}
   - {fileID: 4351761378089470181}
-  - {fileID: 8527625772578200516}
   - {fileID: 1830330835}
   - {fileID: 72021507}
   m_Father: {fileID: 0}
@@ -2745,6 +2745,7 @@ MonoBehaviour:
   playerTransform: {fileID: 5048602998274442010}
   lookAtTransform: {fileID: 7192343918038896082}
   pivotTransform: {fileID: 72021507}
+  gunTransform: {fileID: 399960107867960927}
   rotationSpeed: 15
   mouseSensitivity: 1
 --- !u!1 &7730426429272914162
@@ -2845,8 +2846,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 656885467029573882}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.000069845555, w: 1}
-  m_LocalPosition: {x: 0.6, y: 0.75, z: 0.60000014}
+  m_LocalRotation: {x: -0, y: -0, z: 0.000069845555, w: 1}
+  m_LocalPosition: {x: 0.59, y: 1.55, z: -4.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2901,7 +2902,7 @@ SceneRoots:
   - {fileID: 1198673191}
   - {fileID: 1632470085}
   - {fileID: 4462531296956764762}
-  - {fileID: 5048602998274442010}
   - {fileID: 1631060789}
   - {fileID: 1984728688}
   - {fileID: 368914612}
+  - {fileID: 5048602998274442010}

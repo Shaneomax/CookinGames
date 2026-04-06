@@ -68,26 +68,40 @@ public class PlayerCamera : MonoBehaviour
 
     private void RotateCamera()
     {
+        // 1. Get Mouse Input
         yaw += lookInput.x * mouseSensitivity;
         pitch -= lookInput.y * mouseSensitivity;
 
+        // 2. Clamp Pitch (Vertical look) - Keep this so the camera doesn't flip upside down
         pitch = Mathf.Clamp(pitch, -30f, 60f);
 
-        // ALWAYS rotate pivot (camera up/down + base rotation)
-        pivotTransform.rotation = Quaternion.Euler(pitch, yaw, 0f);
-        
+        // 3. DO NOT CLAMP YAW (Horizontal look)
+        // This keeps the value clean between 0-360 for infinite rotation
+        yaw = Mathf.Repeat(yaw, 360f);
 
-        // IF ZOOMING → rotate player ONLY on Y axis
+        // 4. Update the Camera Pivot (Free movement)
+        pivotTransform.rotation = Quaternion.Euler(pitch, yaw, 0f);
+
         if (zoomCamera.Priority == 2)
         {
-            gunTransform.rotation = pivotTransform.rotation;
+            // 5. Clamp Gun X (Pitch) - The gun won't tilt as far as the camera
+            float clampedGunPitch = Mathf.Clamp(pitch, -20f, 20f);
+
+            // Apply rotation to the gun (World rotation)
+            gunTransform.rotation = Quaternion.Euler(clampedGunPitch, yaw, 0f);
+
+            // 6. Rotate player body on Y axis (Yaw) only
             Quaternion targetRotation = Quaternion.Euler(0f, yaw, 0f);
-            playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            playerTransform.rotation = Quaternion.Slerp(
+                playerTransform.rotation,
+                targetRotation,
+                Time.deltaTime * rotationSpeed
+            );
         }
-        else 
+        else
         {
+            // Reset gun to local forward when not zooming
             gunTransform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         }
-
     }
 }
