@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private PlayerCamera playerCamera;
     [SerializeField] private GunController gunController;
+    [SerializeField]private Collider[] colliderArray;
 
 
     private void Awake()
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteract()
     {
-        Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
+        colliderArray = Physics.OverlapSphere(transform.position, interactRange);
 
         foreach (Collider collider in colliderArray)
         {
