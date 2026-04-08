@@ -3283,13 +3283,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4984022126041577565}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: 1.1423007, y: 1.9115558, z: 0.6904207}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4412269978430126146}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
 --- !u!33 &3740201724861633154
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3406,7 +3406,7 @@ Transform:
   m_GameObject: {fileID: 3922732614829662968}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -17.97, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3467,6 +3467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Car
   isDriverDoorOpen: 0
+  isPassengerDoorOpen: 0
 --- !u!136 &4419417273535852871
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3642,6 +3643,8 @@ GameObject:
   - component: {fileID: 3435837927831821665}
   - component: {fileID: 5673466558562880184}
   - component: {fileID: 1705099517688492486}
+  - component: {fileID: 5673466558562880186}
+  - component: {fileID: 5673466558562880185}
   m_Layer: 0
   m_Name: DOOR_PASSENGER
   m_TagString: Untagged
@@ -3692,6 +3695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CarDriverDoor
   carAnimationManager: {fileID: 4412269978430126147}
   car: {fileID: 4412269978430126149}
+  isDriverDoor: 1
 --- !u!65 &5170225920371770182
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3739,6 +3743,42 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4984022126041577565}
   m_Mesh: {fileID: -7123618768955139141, guid: 857a97dfd6ef6194b8ed00a465c0bf09, type: 3}
+--- !u!114 &5673466558562880185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4984022126041577565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ce827ece839f7429ec53adb6d313f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarDriverDoor
+  carAnimationManager: {fileID: 4412269978430126147}
+  car: {fileID: 4412269978430126149}
+  isDriverDoor: 0
+--- !u!65 &5673466558562880186
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4984022126041577565}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.005345423, y: 0.01580878, z: 0.01151054}
+  m_Center: {x: -0.0009775219, y: 0.00790439, z: -0.000031287786}
 --- !u!135 &6153965393748300972
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4165,7 +4205,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  interactRange: 4.5
+  interactRange: 2
   playerCamera: {fileID: 7721442217902417412}
   gunController: {fileID: 8100343801318190317}
   colliderArray: []

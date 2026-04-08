@@ -29,4 +29,15 @@ public class CarAnimationManager : MonoBehaviour
         return false;
     }
 
+    public bool PlayPassengerDoorOpen()
+    {
+        animator.SetTrigger("OpenPassengerDoor");
+        return true;
+    }
+    public bool PlayPassengerDoorClose()
+    {
+        animator.SetTrigger("ClosePassengerDoor");
+        return false;
+    }
+
 }

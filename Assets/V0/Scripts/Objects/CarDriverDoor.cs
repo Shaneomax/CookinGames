@@ -5,20 +5,24 @@ public class CarDriverDoor : MonoBehaviour, Iinteractable
 {
     [SerializeField] CarAnimationManager carAnimationManager;
     [SerializeField] Car car;
+    [SerializeField] bool isDriverDoor = true;
     public void Interact()
     {
-        if (car != null)
+        if (car == null || carAnimationManager == null) return;
+
+        if (isDriverDoor)
         {
-            if(car.isDriverDoorOpen)
-            {
-                car.isDriverDoorOpen = carAnimationManager.PlayDriverDoorClose();
-            }
-            else
-            {
-                car.isDriverDoorOpen = carAnimationManager.PlayDriverDoorOpen();
-            }
+            // Toggle driver door
+            car.isDriverDoorOpen = car.isDriverDoorOpen ?
+                carAnimationManager.PlayDriverDoorClose() :
+                carAnimationManager.PlayDriverDoorOpen();
+        }
+        else
+        {
+            // Toggle passenger door
+            car.isPassengerDoorOpen = car.isPassengerDoorOpen ?
+                carAnimationManager.PlayPassengerDoorClose() :
+                carAnimationManager.PlayPassengerDoorOpen();
         }
     }
-
-   
 }
