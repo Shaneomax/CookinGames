@@ -8,13 +8,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float rayDistance = 5f;
     [SerializeField] private float jumpForce = 5f;
-    private bool checkGroundLayer = true;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float interactRange = 2f;
 
     [SerializeField] private PlayerCamera playerCamera;
     [SerializeField] private GunController gunController;
-    [SerializeField]private Collider[] colliderArray;
+    [SerializeField] private Collider[] colliderArray;
 
 
     private void Awake()
@@ -107,8 +106,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded()
     {
-        checkGroundLayer = Physics.Raycast(transform.position, Vector3.down, rayDistance, groundLayer);
-        return checkGroundLayer;
+        return Physics.Raycast(transform.position, Vector3.down, rayDistance, groundLayer);
     }
 
     private void OnDrawGizmos()

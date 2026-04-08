@@ -26,8 +26,8 @@ public class SlidingDoor : MonoBehaviour, Iinteractable
 
         Vector3 targetPos = isOpen ? openPosition : closedPosition;
 
-        currentTween = transform.DOLocalMove(targetPos, duration)
-                                .SetEase(Ease.OutQuad);
+        currentTween = transform.DOLocalMove(targetPos, duration).SetEase(Ease.OutQuad);
+
 
         Debug.Log("Sliding Door is " + (isOpen ? "Open" : "Closed"));
     }
