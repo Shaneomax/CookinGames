@@ -10,7 +10,7 @@ public class Car : MonoBehaviour, Iinteractable // Added interface
     [SerializeField] private CarController carController;
     [SerializeField] private CinemachineCamera carCamera;
 
-    private PlayerController playerInside;
+    [SerializeField]private PlayerController playerInside;
 
     private void Start()
     {
@@ -28,7 +28,8 @@ public class Car : MonoBehaviour, Iinteractable // Added interface
     private void EnterCar()
     {
         // Find the player object in the scene
-        playerInside = Object.FindFirstObjectByType<PlayerController>();
+       playerInside = FindFirstObjectByType<PlayerController>();
+        //playerInside = GetComponent<PlayerController>();
 
         if (playerInside != null)
         {

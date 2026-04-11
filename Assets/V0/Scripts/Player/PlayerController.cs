@@ -47,10 +47,10 @@ public class PlayerController : MonoBehaviour
     {
         // We unsubscribe first just to be 100% sure we don't accidentally double-subscribe, 
         // which would cause double-jumping or double-shooting.
-        InputManager.Instance.OnMove -= HandleMove;
-        InputManager.Instance.OnJump -= HandleJump;
-        InputManager.Instance.OnInteract -= HandleInteract;
-        InputManager.Instance.OnFire -= HandleFire;
+        //InputManager.Instance.OnMove -= HandleMove;
+        //InputManager.Instance.OnJump -= HandleJump;
+        //InputManager.Instance.OnInteract -= HandleInteract;
+        //InputManager.Instance.OnFire -= HandleFire;
 
         InputManager.Instance.OnMove += HandleMove;
         InputManager.Instance.OnJump += HandleJump;

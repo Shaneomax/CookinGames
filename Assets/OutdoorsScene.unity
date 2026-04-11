@@ -1501,7 +1501,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1198673187}
-  m_Material: {fileID: 13400000, guid: c77abc477d4de2a4197e1f08cebc364e, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -3426,6 +3426,10 @@ PrefabInstance:
       propertyPath: carCamera
       value: 
       objectReference: {fileID: 448480998}
+    - target: {fileID: 989282361180118606, guid: fee8d41cb9e60e14aa957a169d0ce380, type: 3}
+      propertyPath: playerInside
+      value: 
+      objectReference: {fileID: 9121521720701590528}
     - target: {fileID: 989282361180118606, guid: fee8d41cb9e60e14aa957a169d0ce380, type: 3}
       propertyPath: carController
       value: 
