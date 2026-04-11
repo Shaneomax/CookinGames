@@ -20,26 +20,42 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-       
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        InputManager.Instance.OnMove += HandleMove;
-        InputManager.Instance.OnJump += HandleJump;
-        InputManager.Instance.OnInteract += HandleInteract;
-        InputManager.Instance.OnFire += HandleFire;
-        
+        if(InputManager.Instance != null)
+        {
+            SubscribeInputs();
+        }   
 
     }
 
     private void OnDisable()
     {
+        if(InputManager.Instance != null)
+        {
+            InputManager.Instance.OnMove -= HandleMove;
+            InputManager.Instance.OnJump -= HandleJump;
+            InputManager.Instance.OnInteract -= HandleInteract;
+            InputManager.Instance.OnFire -= HandleFire;
+        }
+
+    }
+
+    private void SubscribeInputs()
+    {
+        // We unsubscribe first just to be 100% sure we don't accidentally double-subscribe, 
+        // which would cause double-jumping or double-shooting.
         InputManager.Instance.OnMove -= HandleMove;
         InputManager.Instance.OnJump -= HandleJump;
         InputManager.Instance.OnInteract -= HandleInteract;
         InputManager.Instance.OnFire -= HandleFire;
 
+        InputManager.Instance.OnMove += HandleMove;
+        InputManager.Instance.OnJump += HandleJump;
+        InputManager.Instance.OnInteract += HandleInteract;
+        InputManager.Instance.OnFire += HandleFire;
     }
 
     private void HandleMove(Vector3 input)

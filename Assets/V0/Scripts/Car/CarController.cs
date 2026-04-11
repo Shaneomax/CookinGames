@@ -23,9 +23,6 @@ public class CarController : MonoBehaviour
     public Transform rearLeftWheelTransform;
     public Transform rearRightWheelTransform;
 
-    [SerializeField] private CinemachineCamera carCamera;
-    private PlayerController currentPlayer;
-
     private float horizontalInput;
     private float verticalInput;
     private float currentSteerAngle;
