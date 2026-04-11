@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Collider[] colliderArray;
 
 
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
         InputManager.Instance.OnJump += HandleJump;
         InputManager.Instance.OnInteract += HandleInteract;
         InputManager.Instance.OnFire += HandleFire;
+        
 
     }
 
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
         InputManager.Instance.OnJump -= HandleJump;
         InputManager.Instance.OnInteract -= HandleInteract;
         InputManager.Instance.OnFire -= HandleFire;
+
     }
 
     private void HandleMove(Vector3 input)
@@ -58,7 +61,7 @@ public class PlayerController : MonoBehaviour
             if (collider.TryGetComponent(out Iinteractable interactable))
             {
                 interactable.Interact();
-                break;
+                return;
             }
         }
     }
