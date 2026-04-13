@@ -27,7 +27,7 @@ public class CarController : MonoBehaviour
     private float verticalInput;
     private float currentSteerAngle;
     private float currentBrakeForce;
-    private float activeTorque; // The actual torque being applied right now
+    private float activeTorque;
     private bool isBraking;
     private Rigidbody rb;
 
