@@ -70,24 +70,17 @@ public class PlayerCamera : MonoBehaviour
 
     private void RotateCamera()
     {
-        // Get Mouse Input
         yaw += lookInput.x * mouseSensitivity;
         pitch -= lookInput.y * mouseSensitivity;
 
-        // Clamp Vertical Look
-        // Setting this to -30 to 60 is standard for a good range of motion
         pitch = Mathf.Clamp(pitch, -30f, 60f);
         yaw = Mathf.Repeat(yaw, 360f);
 
         //Update the Camera Pivot
         pivotTransform.rotation = Quaternion.Euler(pitch, yaw, 0f);
 
-        
-
         if (zoomCamera.Priority == 2)
         {
-            // Rotate the WHOLE PLAYER on both Pitch (X) and Yaw (Y)
-            // This makes the player character lean up and down with the mouse
             Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0f);
 
             playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, Time.deltaTime * rotationSpeed);

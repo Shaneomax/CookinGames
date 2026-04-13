@@ -50,11 +50,11 @@ public class CarController : MonoBehaviour
     void SetWheelFriction(WheelCollider wheel)
     {
         WheelFrictionCurve forwardFriction = wheel.forwardFriction;
-        forwardFriction.stiffness = 2.5f; // Increase grip
+        forwardFriction.stiffness = 2.5f; 
         wheel.forwardFriction = forwardFriction;
 
         WheelFrictionCurve sidewaysFriction = wheel.sidewaysFriction;
-        sidewaysFriction.stiffness = 3f; // VERY important for sliding
+        sidewaysFriction.stiffness = 3f;
         wheel.sidewaysFriction = sidewaysFriction;
     }
 
@@ -77,19 +77,14 @@ public class CarController : MonoBehaviour
     private void HandleMotor()
     {
         float currentSpeed = rb.linearVelocity.magnitude;
-
-        // 1. Calculate Target Torque based on input
         float targetTorque = verticalInput * motorForce;
 
-        // 2. MANUALLY CONTROL ACCELERATION
-        // This smoothly moves activeTorque towards targetTorque at the rate of 'acceleration'
         activeTorque = Mathf.MoveTowards(activeTorque, targetTorque, acceleration * motorForce * Time.fixedDeltaTime);
 
-        // 3. Apply Speed Cap Falloff (so it doesn't jitter at max speed)
+
         float speedFactor = Mathf.InverseLerp(maxSpeed, maxSpeed * 0.9f, currentSpeed);
         float finalTorque = activeTorque * speedFactor;
 
-        // Apply to AWD
         frontLeftWheelCollider.motorTorque = finalTorque;
         frontRightWheelCollider.motorTorque = finalTorque;
         rearLeftWheelCollider.motorTorque = finalTorque;
